@@ -6,14 +6,16 @@ import {useState} from "react";
 export default function Main() {
   const [score, setScore] = useState(0);
   const [timeTotal, setTimeTotal] = useState(0)
+  const maxQuestion = 5
+  const timePerQuestion = 5;
   return (
     <Router>
       <Switch>
         <Route exact path="/app">
-          <App score={score} setScore={setScore} timeTotal={timeTotal} setTimeTotal={setTimeTotal} />
+          <App score={score} setScore={setScore} timeTotal={timeTotal} setTimeTotal={setTimeTotal} maxQuestion={maxQuestion} timePerQuestion={timePerQuestion} />
         </Route>
         <Route exact path="/end">
-          <End score={score} timeTotal={timeTotal} />
+          <End score={score} timeTotal={timeTotal} maxQuestion={maxQuestion} />
         </Route>
         <Route exact path="/">
           <Start />

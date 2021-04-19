@@ -10,35 +10,63 @@ const arrAnswer = [
   "answer_e",
   "answer_f",
 ];
-function App({score, setScore, timeTotal, setTimeTotal}) {
 
+function App({
+  score,
+  setScore,
+  timeTotal,
+  setTimeTotal,
+  timePerQuestion,
+  maxQuestion,
+}) {
   const [question, setQuestion] = useState({});
-  const [questionList,setQuestionList] = useState([])
-  const [questionCount, setQuestionCount] = useState(1)
+  const [questionList, setQuestionList] = useState([]);
+  const [questionCount, setQuestionCount] = useState(1);
+  const [countdown, setCountdown] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const history = useHistory();
 
-  var timeInterval
+  function shuffle(array) {
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
 
   function confirmAnswer(answer) {
-    if (questionCount === 10) {
-      clearTimeout(timeInterval)
-      history.push("/end")
+    if (questionCount >= maxQuestion) {
+      history.push("/end");
     }
 
     if (answer === "true") {
       setScore(score + 1);
     }
-    randomQuestion(questionList)
-    setQuestionCount(questionCount + 1)
+    randomQuestion(questionList);
+    setQuestionCount(questionCount + 1);
   }
 
   function randomQuestion(list) {
+    shuffle(arrAnswer);
     let randomNumberQuestion = Math.floor(Math.random() * list.length);
-      setQuestion(list[randomNumberQuestion]);
-      let cloneList = [...list]
-      cloneList.splice(randomNumberQuestion,1)
-      setQuestionList(cloneList)
+    setQuestion(list[randomNumberQuestion]);
+    let cloneList = [...list];
+    cloneList.splice(randomNumberQuestion, 1);
+    setQuestionList(cloneList);
+    setCountdown(timePerQuestion);
   }
 
   function RenderQuestion() {
@@ -59,36 +87,65 @@ function App({score, setScore, timeTotal, setTimeTotal}) {
                     confirmAnswer(question.correct_answers?.[ele + "_correct"]);
                   }}
                 >
-                  {ele.slice(ele.length - 1).toUpperCase()}.{" "}
                   {question.answers?.[ele]}
                 </div>
               );
           })}
         </div>
-        <div className={styles.time}>30</div>
+        <div className={styles.time}>{countdown}</div>
       </>
     );
   }
-  
+
+  //Lấy dữ liệu
   useEffect(() => {
     async function fetchData() {
       let data = await getData();
-      randomQuestion(data)
-    } 
+      setLoading(false);
+      randomQuestion(data);
+      setScore(0);
+      setTimeTotal(0);
+      setCountdown(timePerQuestion);
+    }
     fetchData();
-    setScore(0)
   }, []);
 
-useEffect(() => {
-  timeInterval = setInterval(() => {
-    setTimeTotal(timeTotal + 1)
-  }, 1000);
-},[])
+  // Tổng thời gian trả lời
+  useEffect(() => {
+    const timeInterval = setInterval(() => {
+      setTimeTotal(timeTotal + 0.5);
+    }, 500);
+    return () => {
+      clearTimeout(timeInterval);
+    };
+  }, [timeTotal]);
+
+  // Đếm thời gian mỗi câu hỏi
+  useEffect(() => {
+    if (question === []) return;
+    const timeInterval = setInterval(() => {
+      setCountdown(countdown - 1);
+    }, 1000);
+    if (countdown === 0) {
+      confirmAnswer("false");
+    }
+    return () => {
+      clearTimeout(timeInterval);
+    };
+  }, [countdown]);
 
   return (
     <main>
       <div className={styles.container}>
-        <RenderQuestion />
+        {loading ? (
+          <img
+            src="https://icon-library.com/images/spinner-icon-gif/spinner-icon-gif-17.jpg"
+            alt="spin"
+            className={styles.loading}
+          />
+        ) : (
+          <RenderQuestion />
+        )}
       </div>
     </main>
   );

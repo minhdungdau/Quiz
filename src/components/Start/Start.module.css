@@ -1,43 +1,43 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-
 main {
-    background-image: url("https://i.pinimg.com/originals/da/4f/c3/da4fc3dc990f33b9e04abbb33e5f5915.jpg");
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-    color: white;
+  background-image: url("https://i.pinimg.com/originals/da/4f/c3/da4fc3dc990f33b9e04abbb33e5f5915.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  color: white;
 }
 
 h1 {
-    font-size: 100px;
-    text-transform: uppercase;
-    margin-bottom: 40px;
+  font-size: 100px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
 }
 
-button {  
-    text-align: center; 
-    font-size:30px;
-    outline: none;
-    cursor: pointer;
-    border: 2px solid rgb(209, 209, 209);
+button {
+  text-align: center;
+  font-size: 30px;
+  outline: none;
+  cursor: pointer;
+  border: 2px solid rgb(209, 209, 209);
 }
+
 .button {
-    border-radius: 50px;
-    width: 400px;
-    height:100px;
-    line-height: 100px;
-    color:mediumblue;
-    font-weight: 800;
+  border-radius: 50px;
+  width: 400px;
+  height: 100px;
+  line-height: 100px;
+  color: mediumblue;
+  font-weight: 800;
 }
 
-.button:hover{
-    opacity: 0.7;
+.button:hover {
+  background-color: rgb(189, 189, 189);
 }
