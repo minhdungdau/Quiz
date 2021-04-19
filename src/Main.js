@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import App from "./components/AppPage/App";
 import Start from "./components/Start/Start";
 import End from "./components/End/End";
-import {useState} from "react";
+import {useState} from "react"; 
 export default function Main() {
   const [score, setScore] = useState(0);
   const [timeTotal, setTimeTotal] = useState(0)

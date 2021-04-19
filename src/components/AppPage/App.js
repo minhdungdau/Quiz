@@ -1,3 +1,4 @@
+ /* eslint-disable */
 import styles from "./App.module.css";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
