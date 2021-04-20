@@ -140,7 +140,7 @@ function App({
       <div className={styles.container}>
         {loading ? (
           <img
-            src="https://media4.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif"
+            src="https://uploads.toptal.io/blog/image/122376/toptal-blog-image-1489080120310-07bfc2c0ba7cd0aee3b6ba77f101f493.gif"
             alt="spin"
             className={styles.loading}
           />
