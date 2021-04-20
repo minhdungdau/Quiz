@@ -140,7 +140,7 @@ function App({
       <div className={styles.container}>
         {loading ? (
           <img
-            src="https://icon-library.com/images/spinner-icon-gif/spinner-icon-gif-17.jpg"
+            src="https://media4.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif"
             alt="spin"
             className={styles.loading}
           />
